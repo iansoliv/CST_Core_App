@@ -5,7 +5,7 @@ plugins {
 }
 
 
-description = 'WS3D'
+description = 'WS3D_APP'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
