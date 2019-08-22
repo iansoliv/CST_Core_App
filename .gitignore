@@ -1,0 +1,17 @@
+
+.gradle/
+/dist/
+/build/
+/bin/
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Package Files #
+*.jar
+*.zip
+*.tar.gz
+*.rar
