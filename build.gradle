@@ -1,11 +1,15 @@
+
+
 plugins {
+	// Apply the java plugin to add support for Java
 	id	'java'
-//	id	'jacoco'
+	
+	// Apply the application plugin to add support for building a CLI application
 	id	'application'
 }
 
 
-description = 'WS3D_APP'
+description = 'CST_Core_App'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -32,7 +36,7 @@ repositories {
 }
 
 dependencies {
-	implementation		files('src/main/resources/WS3DProxy.jar', 'src/main/resources/lib/json.jar')
+	implementation		name: 'WS3DProxy'
 	implementation		group: 'org.json', name: 'json', version:'20180813'
 	implementation		group: 'com.github.CST-Group', name: 'cst', version:'0.2.6'
 //	config1		fileTree(dir: 'libs/lib', include: ['*.jar'])		//include local jars
@@ -40,7 +44,7 @@ dependencies {
 }
 
 jar {
-	from configurations.runtime.collect {
+	from configurations.runtimeClasspath.collect {
 		zipTree it		//creates a directory file tree for all dependencies listed as a <implementation> entry.
 	}
 	

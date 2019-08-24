@@ -21,8 +21,8 @@ import ws3dproxy.model.Thing;
 
 public class AgentMind extends Mind {
 
-	private static final int creatureBasicSpeed = 1;
-	private static final int reachDistance = 50;
+	private static final int CREATURE_BASIC_SPEED = 1;
+	private static final int CREATURE_REACH = 50;
 
 	public AgentMind( Environment env )
 	{
@@ -103,14 +103,14 @@ public class AgentMind extends Mind {
 		codeletsToShow.add( closestAppleDetector );			// show this codelet
 
 		// Create Behavior Codelets
-		Codelet goToClosestApple = new GoToClosestApple( creatureBasicSpeed, reachDistance );
+		Codelet goToClosestApple = new GoToClosestApple( CREATURE_BASIC_SPEED, CREATURE_REACH );
 		goToClosestApple.addInput( closestAppleMO );
 		goToClosestApple.addInput( innerSenseMO );
 		goToClosestApple.addOutput( legsMO );
 		insertCodelet( goToClosestApple );
 		codeletsToShow.add( goToClosestApple );			// show this codelet
 
-		Codelet eatApple = new EatClosestApple( reachDistance );
+		Codelet eatApple = new EatClosestApple( CREATURE_REACH );
 		eatApple.addInput( closestAppleMO );
 		eatApple.addInput( innerSenseMO );
 		eatApple.addOutput( handsMO );
