@@ -1,6 +1,9 @@
 
 
 plugins {
+	// maven support
+	id	'maven'
+	
 	// Apply the java plugin to add support for Java
 	id	'java'
 	

@@ -34,6 +34,7 @@ public class EatClosestApple extends Codelet {
 	{
 		closestAppleMO = (MemoryObject) this.getInput( "CLOSEST_APPLE" );
 		innerSenseMO = (MemoryObject) this.getInput( "INNER" );
+		
 		handsMO = (MemoryObject) this.getOutput( "HANDS" );
 		knownMO = (MemoryObject) this.getOutput( "KNOWN_APPLES" );
 	}
@@ -47,7 +48,10 @@ public class EatClosestApple extends Codelet {
 		known = (List<Thing>) knownMO.getI();
 		//Find distance between closest apple and self
 		//If closer than reachDistance, eat the apple
-
+		
+		// message to store in handsMO
+		JSONObject message = new JSONObject();
+		
 		if (closestApple != null)
 		{
 			double appleX = 0;
@@ -75,19 +79,18 @@ public class EatClosestApple extends Codelet {
 			pSelf.setLocation( selfX, selfY );
 
 			double distance = pSelf.distance( pApple );
-			JSONObject message = new JSONObject();
 			try
 			{
 				if (distance < reachDistance)
 				{ //eat it						
 					message.put( "OBJECT", appleName );
 					message.put( "ACTION", "EATIT" );
-					handsMO.updateI( message.toString() );
+					handsMO.setI( message );
 					DestroyClosestApple();
 				}
 				else
 				{
-					handsMO.updateI( "" );	//nothing
+					handsMO.setI( message );	// empty message
 				}
 			}
 			catch (JSONException e)
@@ -98,7 +101,7 @@ public class EatClosestApple extends Codelet {
 		}
 		else
 		{
-			handsMO.updateI( "" );	//nothing
+			handsMO.setI( message );	// empty message
 		}
 	}
 

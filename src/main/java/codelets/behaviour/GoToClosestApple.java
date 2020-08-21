@@ -29,6 +29,7 @@ public class GoToClosestApple extends Codelet {
 	{
 		closestAppleMO = (MemoryObject) this.getInput( "CLOSEST_APPLE" );
 		selfInfoMO = (MemoryObject) this.getInput( "INNER" );
+		
 		legsMO = (MemoryObject) this.getOutput( "LEGS" );
 	}
 
@@ -85,7 +86,7 @@ public class GoToClosestApple extends Codelet {
 					message.put( "Y", (int) appleY );
 					message.put( "SPEED", 0.0 );
 				}
-				legsMO.updateI( message.toString() );
+				legsMO.setI( message );
 			}
 			catch (JSONException e)
 			{

@@ -38,13 +38,18 @@ public class AgentMind extends Mind {
 
 		//Initialize Memory Objects
 		legsMO = createMemoryObject( "LEGS", "" );
+		
 		handsMO = createMemoryObject( "HANDS", "" );
+		
 		List<Thing> vision_list = Collections.synchronizedList( new ArrayList<>() );
 		visionMO = createMemoryObject( "VISION", vision_list );
+		
 		CreatureInnerSense cis = new CreatureInnerSense();
 		innerSenseMO = createMemoryObject( "INNER", cis );
+		
 		Thing closestApple = null;
 		closestAppleMO = createMemoryObject( "CLOSEST_APPLE", closestApple );
+		
 		List<Thing> knownApples = Collections.synchronizedList( new ArrayList<>() );
 		knownApplesMO = createMemoryObject( "KNOWN_APPLES", knownApples );
 
@@ -127,7 +132,7 @@ public class AgentMind extends Mind {
 		
 		
 				
-		MindViewer mindViewer = new MindViewer(this, "CST Mind Viewer", codeletsToShow);
+		MindViewer mindViewer = new MindViewer(this, "CST Core App Mind Viewer", codeletsToShow);
 		mindViewer.setVisible(true);
 		
 		// Start Cognitive Cycle

@@ -10,7 +10,7 @@ import ws3dproxy.model.Creature;
 public class HandsActionCodelet extends Codelet {
 
 	private MemoryObject handsMO;
-	private String previousHandsAction = "";
+	private JSONObject previousHandsCmd = new JSONObject();
 	private Creature c;
 	private Random r = new Random();
 
@@ -28,18 +28,16 @@ public class HandsActionCodelet extends Codelet {
 	public void proc()
 	{
 
-		String command = (String) handsMO.getI();
-
-		if ( ! command.equals( "" ) && (  ! command.equals( previousHandsAction ) ))
+		JSONObject cmd = (JSONObject) handsMO.getI();
+		
+		if ( ! (cmd.length() == 0 ||  cmd.equals( previousHandsCmd ) ) )
 		{
-			JSONObject jsonAction;
 			try
 			{
-				jsonAction = new JSONObject( command );
-				if (jsonAction.has( "ACTION" ) && jsonAction.has( "OBJECT" ))
+				if (cmd.has( "ACTION" ) && cmd.has( "OBJECT" ))
 				{
-					String action = jsonAction.getString( "ACTION" );
-					String objectName = jsonAction.getString( "OBJECT" );
+					String action = cmd.getString( "ACTION" );
+					String objectName = cmd.getString( "OBJECT" );
 					if (action.equals( "PICKUP" ))
 					{
 						try
@@ -84,7 +82,7 @@ public class HandsActionCodelet extends Codelet {
 			}
 
 		}
-		previousHandsAction = (String) handsMO.getI();
+		previousHandsCmd = cmd;
 	}//end proc
 
 	@Override

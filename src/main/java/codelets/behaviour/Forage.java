@@ -22,13 +22,14 @@ public class Forage extends Codelet {
 	public void proc()
 	{
 		known = (List<Thing>) knownMO.getI();
-		if (known.size() == 0)
+		if (known.isEmpty())
 		{
 			JSONObject message = new JSONObject();
 			try
 			{
 				message.put( "ACTION", "FORAGE" );
-				legsMO.updateI( message.toString() );
+				
+				legsMO.setI( message );
 
 			}
 			catch (JSONException e)

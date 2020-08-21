@@ -12,7 +12,7 @@ public class LegsActionCodelet extends Codelet {
 	private MemoryObject legsActionMO;
 	private double previousTargetx = 0;
 	private double previousTargety = 0;
-	private String previousLegsAction = "";
+	private JSONObject previousLegsAction = new JSONObject();
 	private final Creature c;
 	double old_angle = 0;
 	int k = 0;
@@ -32,31 +32,24 @@ public class LegsActionCodelet extends Codelet {
 	public void proc()
 	{
 
-		String comm = (String) legsActionMO.getI();
-		if (comm == null)
-		{
-			comm = "";
-		}
-		Random r = new Random();
+		JSONObject cmd = (JSONObject) legsActionMO.getI();
 
-		if ( ! comm.equals( "" ))
+		if ( ! (cmd.length() == 0) )
 		{
-
 			try
 			{
-
-				JSONObject command = new JSONObject( comm );
-				if (command.has( "ACTION" ))
+				if (cmd.has( "ACTION" ))
 				{
 					int x = 0, y = 0;
-					String action = command.getString( "ACTION" );
+					String action = cmd.getString( "ACTION" );
 					if (action.equals( "FORAGE" ))
 					{
 						try
 						{
+							Random r = new Random();
 							x = r.nextInt( 600 );
 							y = r.nextInt( 800 );
-							if ( ! comm.equals( previousLegsAction ))
+							if ( ! cmd.equals( previousLegsAction ))
 							{
 								System.out.println( "Sending Forage command to agent:****** (" + x + "," + y + ") **********" );
 							}
@@ -71,12 +64,12 @@ public class LegsActionCodelet extends Codelet {
 					}
 					else if (action.equals( "GOTO" ))
 					{
-						if ( ! comm.equals( previousLegsAction ))
+						if ( ! cmd.equals( previousLegsAction ))
 						{
-							double speed = command.getDouble( "SPEED" );
-							double targetx = command.getDouble( "X" );
-							double targety = command.getDouble( "Y" );
-							if ( ! comm.equals( previousLegsAction ))
+							double speed = cmd.getDouble( "SPEED" );
+							double targetx = cmd.getDouble( "X" );
+							double targety = cmd.getDouble( "Y" );
+							if ( ! cmd.equals( previousLegsAction ))
 							{
 								System.out.println( "Sending move command to agent: [" + targetx + "," + targety + "]" );
 							}
@@ -105,7 +98,7 @@ public class LegsActionCodelet extends Codelet {
 						}
 					}
 				}
-				previousLegsAction = comm;
+				previousLegsAction = cmd;
 				k ++;
 
 			}

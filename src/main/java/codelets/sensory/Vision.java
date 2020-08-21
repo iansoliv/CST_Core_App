@@ -12,7 +12,7 @@ import ws3dproxy.model.Creature;
 public class Vision extends Codelet {
 
 	private MemoryObject visionMO;
-	private Creature c;
+	private final Creature c;
 
 	public Vision( Creature nc )
 	{
@@ -31,8 +31,8 @@ public class Vision extends Codelet {
 		c.updateState();
 		synchronized (visionMO)
 		{
-			List lt = c.getThingsInVision();
-			visionMO.setI( lt );
+			List viewedThings = c.getThingsInVision();
+			visionMO.setI( viewedThings );
 		}
 	}//end proc()
 
